@@ -1,7 +1,6 @@
 <div class="list-container">
   <div class="search-section">
     <h2>Liste des Suggestions</h2>
-    <!-- Two-way binding with [(ngModel)] -->
     <div class="search-bar">
       <input 
         type="text" 
@@ -14,12 +13,10 @@
     <p class="result-count">{{ filteredSuggestions.length }} suggestion(s) trouvée(s)</p>
   </div>
 
-  <!-- Display favorites count if any -->
   <div *ngIf="favorites.length > 0" class="favorites-info">
     <p>📌 Vous avez {{ favorites.length }} suggestion(s) dans vos favoris</p>
   </div>
 
-  <!-- NgFor directive to iterate through suggestions -->
   <div class="suggestions-grid">
     <div 
       *ngFor="let suggestion of filteredSuggestions" 
@@ -41,13 +38,10 @@
           <span class="likes">❤️ {{ suggestion.nbLikes }} likes</span>
         </div>
 
-        <!-- NgIf directive: buttons only show when status is NOT 'refusee' -->
         <div *ngIf="suggestion.status !== 'refusee'" class="action-buttons">
-          <!-- Event binding with (click) -->
           <button 
             (click)="incrementLikes(suggestion)" 
             class="btn btn-like"
-            title="J'aime cette suggestion"
           >
             👍 Like
           </button>
@@ -56,13 +50,19 @@
             (click)="addToFavorites(suggestion)" 
             class="btn btn-favorite"
             [class.is-favorite]="isFavorite(suggestion)"
-            title="Ajouter aux favoris"
           >
             {{ isFavorite(suggestion) ? '⭐ Favoris' : '☆ Ajouter aux favoris' }}
           </button>
+
+          <!-- ✅ Bouton Details ajouté ici -->
+          <button 
+            [routerLink]="['/suggestions', suggestion.id]"
+            class="btn btn-details"
+          >
+            🔍 Details
+          </button>
         </div>
 
-        <!-- Message when suggestion is refused -->
         <div *ngIf="suggestion.status === 'refusee'" class="refused-message">
           Cette suggestion a été refusée
         </div>
@@ -70,7 +70,6 @@
     </div>
   </div>
 
-  <!-- NgIf directive: show message when no results -->
   <div *ngIf="filteredSuggestions.length === 0" class="no-results">
     <p>Aucune suggestion trouvée pour "{{ searchTerm }}"</p>
   </div>
