@@ -1,4 +1,100 @@
-<div style="text-align: center; margin-top: 50px;">
-  <h1>Bienvenue sur la page d'accueil !</h1>
-  <p>Cliquez sur "Suggestions" pour voir la liste des suggestions.</p>
+<div class="home-wrapper">
+
+  <!-- Animated background particles -->
+  <div class="particles">
+    <span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="badge">✦ Plateforme Collaborative</div>
+      <h1 class="hero-title">
+        Donnez vie à vos
+        <span class="highlight">idées</span>
+      </h1>
+      <p class="hero-subtitle">
+        Soumettez, explorez et soutenez les meilleures suggestions 
+        pour améliorer notre environnement commun.
+      </p>
+      <div class="hero-actions">
+        <a routerLink="/suggestions" class="btn-primary">
+          Voir les suggestions
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+        <a routerLink="/suggestions/add" class="btn-secondary">
+          ➕ Ajouter une idée
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="card-float card-1">
+        <span class="card-icon">💡</span>
+        <p>Nouvelle idée soumise</p>
+        <small>Il y a 2 minutes</small>
+      </div>
+      <div class="card-float card-2">
+        <span class="card-icon">✅</span>
+        <p>Suggestion acceptée</p>
+        <small>Technologie</small>
+      </div>
+      <div class="card-float card-3">
+        <span class="card-icon">❤️</span>
+        <p>+128 likes aujourd'hui</p>
+        <small>Communauté active</small>
+      </div>
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats">
+    <div class="stat-item">
+      <h3>+240</h3>
+      <p>Suggestions soumises</p>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <h3>85%</h3>
+      <p>Taux d'acceptation</p>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <h3>10</h3>
+      <p>Catégories disponibles</p>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <h3>+1k</h3>
+      <p>Membres actifs</p>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features">
+    <h2 class="section-title">Comment ça fonctionne ?</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">📝</div>
+        <h3>Soumettez</h3>
+        <p>Rédigez votre suggestion avec un titre clair et une description détaillée.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">👥</div>
+        <h3>Partagez</h3>
+        <p>La communauté découvre votre idée et peut lui accorder des likes.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🚀</div>
+        <h3>Réalisez</h3>
+        <p>Les meilleures suggestions sont acceptées et mises en œuvre.</p>
+      </div>
+    </div>
+  </section>
+
 </div>

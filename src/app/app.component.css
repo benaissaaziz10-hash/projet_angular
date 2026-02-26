@@ -1,0 +1,7 @@
+/* app.component.css */
+:host {
+  display: block;
+  padding-top: 73px; /* hauteur du header fixe */
+  background: #0a0a0f;
+  min-height: 100vh;
+}

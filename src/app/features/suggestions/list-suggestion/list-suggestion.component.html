@@ -1,6 +1,14 @@
 <div class="list-container">
   <div class="search-section">
     <h2>Liste des Suggestions</h2>
+    
+    <!-- ✅ Bouton Ajouter -->
+    <div class="add-button-container">
+      <button [routerLink]="['/suggestions/add']" class="btn btn-add">
+        ➕ Ajouter une suggestion
+      </button>
+    </div>
+
     <div class="search-bar">
       <input 
         type="text" 
@@ -54,7 +62,6 @@
             {{ isFavorite(suggestion) ? '⭐ Favoris' : '☆ Ajouter aux favoris' }}
           </button>
 
-          <!-- ✅ Bouton Details ajouté ici -->
           <button 
             [routerLink]="['/suggestions', suggestion.id]"
             class="btn btn-details"

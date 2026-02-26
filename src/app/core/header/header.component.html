@@ -1,4 +1,28 @@
-<nav>
-  <a routerLink="/home">Home</a>
-  <a routerLink="/listSuggestion">List Suggestions</a>
-</nav>
+<header class="header">
+  <div class="header-inner">
+
+    <!-- Logo -->
+    <a routerLink="/home" class="logo">
+      <div class="logo-icon">✦</div>
+      <span class="logo-text">Suggest<span class="logo-accent">IO</span></span>
+    </a>
+
+    <!-- Nav Links -->
+    <nav class="nav">
+      <a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-link">
+        <span>Accueil</span>
+      </a>
+      <a routerLink="/suggestions" routerLinkActive="active" class="nav-link">
+        <span>Suggestions</span>
+      </a>
+    </nav>
+
+    <!-- CTA Button -->
+    <div class="header-actions">
+      <a routerLink="/suggestions/add" class="btn-cta">
+        ➕ Nouvelle idée
+      </a>
+    </div>
+
+  </div>
+</header>

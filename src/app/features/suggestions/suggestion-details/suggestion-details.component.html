@@ -1,32 +1,76 @@
-<div class="detail-container" *ngIf="suggestion; else notFound">
-  
-  <div class="card-header">
-    <span class="category-badge">{{ suggestion.category }}</span>
-    <span class="status-badge status-{{ suggestion.status }}">
-      {{ suggestion.status === 'acceptee' ? 'Acceptée' : 
-         suggestion.status === 'refusee' ? 'Refusée' : 'En attente' }}
-    </span>
-  </div>
+<div class="detail-wrapper" *ngIf="suggestion; else notFound">
 
-  <h2>{{ suggestion.title }}</h2>
-  <p>{{ suggestion.description }}</p>
-
-  <div class="info">
-    <span>📅 {{ suggestion.date | date:'dd/MM/yyyy' }}</span>
-    <span>❤️ {{ suggestion.nbLikes }} likes</span>
-  </div>
-
-  <!-- Bouton back to list -->
-  <button (click)="backToList()" class="btn btn-back">
-    ← Back to list
+  <!-- Back Button -->
+  <button (click)="backToList()" class="btn-back">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M19 12H5M12 5l-7 7 7 7"/>
+    </svg>
+    Retour à la liste
   </button>
 
+  <!-- Main Card -->
+  <div class="detail-card">
+
+    <!-- Glow Effect -->
+    <div class="card-glow"></div>
+
+    <!-- Header -->
+    <div class="detail-header">
+      <span class="category-badge">{{ suggestion.category }}</span>
+      <span class="status-badge status-{{ suggestion.status }}">
+        {{ suggestion.status === 'acceptee' ? '✅ Acceptée' :
+           suggestion.status === 'refusee'  ? '❌ Refusée' : '⏳ En attente' }}
+      </span>
+    </div>
+
+    <!-- Title -->
+    <h1 class="detail-title">{{ suggestion.title }}</h1>
+
+    <!-- Divider -->
+    <div class="divider"></div>
+
+    <!-- Description -->
+    <div class="detail-section">
+      <p class="section-label">📋 Description</p>
+      <p class="detail-description">{{ suggestion.description }}</p>
+    </div>
+
+    <!-- Meta Info -->
+    <div class="detail-meta">
+      <div class="meta-item">
+        <span class="meta-icon">📅</span>
+        <div>
+          <small>Date</small>
+          <p>{{ suggestion.date | date:'dd MMMM yyyy' }}</p>
+        </div>
+      </div>
+      <div class="meta-item">
+        <span class="meta-icon">❤️</span>
+        <div>
+          <small>Likes</small>
+          <p>{{ suggestion.nbLikes }} likes</p>
+        </div>
+      </div>
+      <div class="meta-item">
+        <span class="meta-icon">🏷️</span>
+        <div>
+          <small>Catégorie</small>
+          <p>{{ suggestion.category }}</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </div>
 
-<!-- Si suggestion non trouvée -->
+<!-- Not Found -->
 <ng-template #notFound>
-  <div style="text-align:center; margin-top: 50px;">
+  <div class="not-found">
+    <div class="not-found-icon">🔍</div>
     <h2>Suggestion introuvable !</h2>
-    <button (click)="backToList()">← Back to list</button>
+    <p>Cette suggestion n'existe pas ou a été supprimée.</p>
+    <button (click)="backToList()" class="btn-back-nf">
+      ← Retour à la liste
+    </button>
   </div>
 </ng-template>
