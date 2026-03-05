@@ -2,9 +2,8 @@
   <div class="search-section">
     <h2>Liste des Suggestions</h2>
     
-    <!-- ✅ Bouton Ajouter -->
     <div class="add-button-container">
-      <button [routerLink]="['/suggestions/add']" class="btn btn-add">
+      <button [routerLink]="['add']" class="btn btn-add">
         ➕ Ajouter une suggestion
       </button>
     </div>
@@ -63,10 +62,17 @@
           </button>
 
           <button 
-            [routerLink]="['/suggestions', suggestion.id]"
+            [routerLink]="[suggestion.id]"
             class="btn btn-details"
           >
             🔍 Details
+          </button>
+
+          <button 
+            (click)="deleteSuggestion(suggestion.id)"
+            class="btn btn-delete"
+          >
+            🗑️ Supprimer
           </button>
         </div>
 

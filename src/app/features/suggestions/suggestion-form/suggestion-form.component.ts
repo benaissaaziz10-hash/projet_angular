@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Suggestion } from '../../../models/suggestion';
-import { ListSuggestionComponent } from '../list-suggestion/list-suggestion.component';
+import { ActivatedRoute, Router } from '@angular/router';
+import { SuggestionService } from '../../../core/Services/suggestion.service';
 
 @Component({
   selector: 'app-suggestion-form',
@@ -12,6 +11,8 @@ import { ListSuggestionComponent } from '../list-suggestion/list-suggestion.comp
 export class SuggestionFormComponent implements OnInit {
 
   suggestionForm!: FormGroup;
+  id: number | null = null;
+  isEditMode = false;
 
   categories: string[] = [
     'Infrastructure et bâtiments',
@@ -28,11 +29,24 @@ export class SuggestionFormComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private router: Router,
-    private listComponent: ListSuggestionComponent
+    private service: SuggestionService,
+    public router: Router,
+    public actR: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+
+    this.buildForm();
+
+    const rawId = this.actR.snapshot.params['id'];
+    if (rawId) {
+      this.id = +rawId;
+      this.isEditMode = true;
+      this.loadSuggestion(this.id);
+    }
+  }
+
+  buildForm(): void {
     this.suggestionForm = this.fb.group({
       title: ['', [
         Validators.required,
@@ -43,26 +57,45 @@ export class SuggestionFormComponent implements OnInit {
         Validators.required,
         Validators.minLength(30)
       ]],
-      category: ['', Validators.required],
-      date: [{ value: new Date().toLocaleDateString('fr-FR'), disabled: true }],
-      status: [{ value: 'en_attente', disabled: true }]
+      category:    ['', Validators.required],
+      status:      ['en_attente'],
+      nbLikes:     [0],
+      date:        [new Date()]
     });
   }
 
+loadSuggestion(id: number): void {
+  this.service.getSuggestionById(id).subscribe({
+    next: (response) => {
+      const data = response.suggestion; 
+      console.log('Data extracted:', data);
+      this.suggestionForm.patchValue({
+        title:       data.title,
+        description: data.description,
+        category:    data.category,
+        status:      data.status    || 'en_attente',
+        nbLikes:     data.nbLikes   || 0,
+        date:        data.date      || new Date()
+      });
+    },
+    error: (err) => console.error('Erreur chargement:', err)
+  });
+}
+
   onSubmit(): void {
     if (this.suggestionForm.valid) {
-      const newSuggestion: Suggestion = {
-        id: this.listComponent.suggestions.length + 1,
-        title: this.suggestionForm.get('title')?.value,
-        description: this.suggestionForm.get('description')?.value,
-        category: this.suggestionForm.get('category')?.value,
-        date: new Date(),
-        status: 'en_attente',
-        nbLikes: 0
-      };
-
-      this.listComponent.suggestions.push(newSuggestion);
-      this.router.navigate(['/suggestions']);
+      if (this.isEditMode) {
+        const updated = { ...this.suggestionForm.value, id: this.id };
+        this.service.updateSuggestion(updated).subscribe({
+          next: () => this.router.navigate(['../..'], { relativeTo: this.actR }),
+          error: (err) => console.error('Erreur mise à jour', err)
+        });
+      } else {
+        this.service.addSuggestion(this.suggestionForm.value).subscribe({
+          next: () => this.router.navigate(['..'], { relativeTo: this.actR }),
+          error: (err) => console.error('Erreur ajout', err)
+        });
+      }
     }
   }
 }
